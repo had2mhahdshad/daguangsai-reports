@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第18届大广赛公示信息汇总报告</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans CJK SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #00695c, #00897b);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .header h1 { font-size: 28px; margin-bottom: 10px; }
+        .header p { font-size: 14px; opacity: 0.85; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 24px 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .stat-card .number { font-size: 32px; font-weight: 700; color: #00695c; }
+        .stat-card .label { font-size: 14px; color: #666; margin-top: 6px; }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .section h2 {
+            font-size: 20px;
+            color: #00695c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #b2dfdb;
+        }
+        .chart-container { position: relative; width: 100%; }
+        .chart-half { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        @media (max-width: 768px) { .chart-half { grid-template-columns: 1fr; } }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table th {
+            background: #00897b;
+            color: white;
+            padding: 12px 10px;
+            text-align: center;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+        table tr:nth-child(even) { background: #f1f8f7; }
+        table tr:hover { background: #b2dfdb; }
+        .rank { font-weight: 700; color: #00897b; }
+        .inst-name { text-align: left; font-weight: 500; }
+        .num { font-variant-numeric: tabular-nums; }
+        .pct { color: #666; font-size: 13px; }
+        .cat-detail { font-size: 12px; color: #555; }
+        .dist-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .dist-item {
+            background: #f1f8f7;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #b2dfdb;
+        }
+        .dist-item .count { font-size: 24px; font-weight: 700; color: #00695c; }
+        .dist-item .desc { font-size: 13px; color: #666; margin-top: 4px; }
+        .distribution-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .distribution-bar .bar-label {
+            width: 200px;
+            font-size: 14px;
+            text-align: right;
+        }
+        .distribution-bar .bar {
+            flex: 1;
+            height: 28px;
+            background: #e0f2f1;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .distribution-bar .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00897b, #4db6ac);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            min-width: 40px;
+        }
+        .note {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #e65100;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 13px;
+        }
+        .cat-table td:first-child { text-align: left; font-weight: 500; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>第18届全国大学生广告艺术大赛 公示信息汇总报告</h1>
+        <p>数据来源：www2.sun-ada.net | 公示阶段：拟定全国奖 | 数据采集时间：2026年8月</p>
+    </div>
+
+    <div class="note">
+        本报告汇总了第18届大广赛全部15个作品类别的拟定全国奖公示信息，所有数据均来自官网公示页面，共6,640条记录，采集错误率为0%。
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="number">6,640</div>
+            <div class="label">公示作品总数</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">15</div>
+            <div class="label">作品类别数</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">1,122</div>
+            <div class="label">参与院校数</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">30</div>
+            <div class="label">赛区数</div>
+        </div>
+        <div class="stat-card">
+            <div class="number">16</div>
+            <div class="label">命题品牌数</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>各作品类别公示数量分布</h2>
+        <div class="chart-half">
+            <div class="chart-container" style="height: 400px;">
+                <canvas id="categoryChart"></canvas>
+            </div>
+            <div>
+                <table class="cat-table">
+                    <thead>
+                        <tr><th>作品类别</th><th>数量</th><th>占比</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Aa 平面广告</td><td class="num">1,810</td><td class="pct">27.26%</td></tr>
+                        <tr><td>Ba 视频类影视广告</td><td class="num">770</td><td class="pct">11.6%</td></tr>
+                        <tr><td>Eb 30秒广播广告</td><td class="num">720</td><td class="pct">10.84%</td></tr>
+                        <tr><td>F 策划案类</td><td class="num">700</td><td class="pct">10.54%</td></tr>
+                        <tr><td>Bb 视频类微电影广告</td><td class="num">620</td><td class="pct">9.34%</td></tr>
+                        <tr><td>C 动画类</td><td class="num">460</td><td class="pct">6.93%</td></tr>
+                        <tr><td>Bc 视频类短视频广告</td><td class="num">430</td><td class="pct">6.48%</td></tr>
+                        <tr><td>Ea 15秒广播广告</td><td class="num">200</td><td class="pct">3.01%</td></tr>
+                        <tr><td>Da 线上互动广告</td><td class="num">180</td><td class="pct">2.71%</td></tr>
+                        <tr><td>H UI类</td><td class="num">160</td><td class="pct">2.41%</td></tr>
+                        <tr><td>G 文案类</td><td class="num">160</td><td class="pct">2.41%</td></tr>
+                        <tr><td>Ac IP与创意周边</td><td class="num">140</td><td class="pct">2.11%</td></tr>
+                        <tr><td>Ab 产品与包装</td><td class="num">120</td><td class="pct">1.81%</td></tr>
+                        <tr><td>Ib 科技类文创周边</td><td class="num">90</td><td class="pct">1.36%</td></tr>
+                        <tr><td>Ia 科技类品牌形象IP</td><td class="num">80</td><td class="pct">1.2%</td></tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 16px; font-size: 13px; color: #666;">
+                    平面广告类公示数量最多（1,810项，占27.26%），是第二大类别（影视广告770项）的2.3倍。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>各命题品牌公示数量分布</h2>
+        <div class="chart-container" style="height: 400px;">
+            <canvas id="topicChart"></canvas>
+        </div>
+        <p style="margin-top: 12px; font-size: 13px; color: #666;">
+            娃哈哈以1072项公示作品位居首位，豪士面包（653项）和超能植愈系列（589项）分列二三位。
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>各赛区公示数量分布 TOP 15</h2>
+        <div class="chart-container" style="height: 400px;">
+            <canvas id="areaChart"></canvas>
+        </div>
+        <p style="margin-top: 12px; font-size: 13px; color: #666;">
+            重庆赛区以686项公示作品领跑，湖南（589项）和广东（531项）紧随其后。
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>院校公示数量排名 TOP 20</h2>
+        <div class="chart-container" style="height: 500px;">
+            <canvas id="schoolChart"></canvas>
+        </div>
+        <p style="margin-top: 12px; font-size: 13px; color: #666;">
+            重庆移通学院与南京林业大学并列第一（各66项），池州学院（64项）紧随其后。重庆地区院校表现突出，TOP20中有6所来自重庆。
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>TOP 30 院校公示详情</h2>
+        <div style="max-height: 500px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>排名</th>
+                        <th>院校名称</th>
+                        <th>公示数</th>
+                        <th>占比</th>
+                        <th>赛区</th>
+                        <th>主要类别</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td class="rank">1</td>
+            <td class="inst-name">重庆移通学院</td>
+            <td class="num">66</td>
+            <td class="pct">0.99%</td>
+            <td>重庆</td>
+            <td class="cat-detail">Aa 平面广告(30)</td>
+        </tr>
+        <tr>
+            <td class="rank">2</td>
+            <td class="inst-name">南京林业大学</td>
+            <td class="num">66</td>
+            <td class="pct">0.99%</td>
+            <td>江苏</td>
+            <td class="cat-detail">Eb 30秒广播广告(17)</td>
+        </tr>
+        <tr>
+            <td class="rank">3</td>
+            <td class="inst-name">池州学院</td>
+            <td class="num">64</td>
+            <td class="pct">0.96%</td>
+            <td>安徽</td>
+            <td class="cat-detail">Eb 30秒广播广告(28)</td>
+        </tr>
+        <tr>
+            <td class="rank">4</td>
+            <td class="inst-name">重庆电子科技职业大学</td>
+            <td class="num">57</td>
+            <td class="pct">0.86%</td>
+            <td>重庆</td>
+            <td class="cat-detail">Aa 平面广告(26)</td>
+        </tr>
+        <tr>
+            <td class="rank">5</td>
+            <td class="inst-name">哈尔滨师范大学</td>
+            <td class="num">53</td>
+            <td class="pct">0.8%</td>
+            <td>黑龙江</td>
+            <td class="cat-detail">Ea 15秒广播广告(18)</td>
+        </tr>
+        <tr>
+            <td class="rank">6</td>
+            <td class="inst-name">重庆外语外事学院</td>
+            <td class="num">49</td>
+            <td class="pct">0.74%</td>
+            <td>重庆</td>
+            <td class="cat-detail">Aa 平面广告(39)</td>
+        </tr>
+        <tr>
+            <td class="rank">7</td>
+            <td class="inst-name">广西民族大学</td>
+            <td class="num">45</td>
+            <td class="pct">0.68%</td>
+            <td>广西</td>
+            <td class="cat-detail">Aa 平面广告(22)</td>
+        </tr>
+        <tr>
+            <td class="rank">8</td>
+            <td class="inst-name">浙江理工大学</td>
+            <td class="num">45</td>
+            <td class="pct">0.68%</td>
+            <td>浙江</td>
+            <td class="cat-detail">F 策划案类(22)</td>
+        </tr>
+        <tr>
+            <td class="rank">9</td>
+            <td class="inst-name">重庆理工大学</td>
+            <td class="num">43</td>
+            <td class="pct">0.65%</td>
+            <td>重庆</td>
+            <td class="cat-detail">Aa 平面广告(23)</td>
+        </tr>
+        <tr>
+            <td class="rank">10</td>
+            <td class="inst-name">西南交通大学</td>
+            <td class="num">42</td>
+            <td class="pct">0.63%</td>
+            <td>四川（含西藏）</td>
+            <td class="cat-detail">F 策划案类(22)</td>
+        </tr>
+        <tr>
+            <td class="rank">11</td>
+            <td class="inst-name">南京传媒学院</td>
+            <td class="num">40</td>
+            <td class="pct">0.6%</td>
+            <td>江苏</td>
+            <td class="cat-detail">Bb 视频类微电影广告(13)</td>
+        </tr>
+        <tr>
+            <td class="rank">12</td>
+            <td class="inst-name">安徽师范大学</td>
+            <td class="num">39</td>
+            <td class="pct">0.59%</td>
+            <td>安徽</td>
+            <td class="cat-detail">Aa 平面广告(14)</td>
+        </tr>
+        <tr>
+            <td class="rank">13</td>
+            <td class="inst-name">重庆对外经贸学院</td>
+            <td class="num">39</td>
+            <td class="pct">0.59%</td>
+            <td>重庆</td>
+            <td class="cat-detail">F 策划案类(10)</td>
+        </tr>
+        <tr>
+            <td class="rank">14</td>
+            <td class="inst-name">重庆城市科技学院</td>
+            <td class="num">36</td>
+            <td class="pct">0.54%</td>
+            <td>重庆</td>
+            <td class="cat-detail">Aa 平面广告(27)</td>
+        </tr>
+        <tr>
+            <td class="rank">15</td>
+            <td class="inst-name">湖南师范大学</td>
+            <td class="num">34</td>
+            <td class="pct">0.51%</td>
+            <td>湖南</td>
+            <td class="cat-detail">Ba 视频类影视广告(9)</td>
+        </tr>
+        <tr>
+            <td class="rank">16</td>
+            <td class="inst-name">重庆工程职业技术学院</td>
+            <td class="num">33</td>
+            <td class="pct">0.5%</td>
+            <td>重庆</td>
+            <td class="cat-detail">Aa 平面广告(23)</td>
+        </tr>
+        <tr>
+            <td class="rank">17</td>
+            <td class="inst-name">杭州师范大学</td>
+            <td class="num">33</td>
+            <td class="pct">0.5%</td>
+            <td>浙江</td>
+            <td class="cat-detail">H UI类(6)</td>
+        </tr>
+        <tr>
+            <td class="rank">18</td>
+            <td class="inst-name">长江师范学院</td>
+            <td class="num">32</td>
+            <td class="pct">0.48%</td>
+            <td>重庆</td>
+            <td class="cat-detail">Ea 15秒广播广告(10)</td>
+        </tr>
+        <tr>
+            <td class="rank">19</td>
+            <td class="inst-name">深圳大学</td>
+            <td class="num">31</td>
+            <td class="pct">0.47%</td>
+            <td>广东</td>
+            <td class="cat-detail">F 策划案类(9)</td>
+        </tr>
+        <tr>
+            <td class="rank">20</td>
+            <td class="inst-name">铜陵学院</td>
+            <td class="num">31</td>
+            <td class="pct">0.47%</td>
+            <td>安徽</td>
+            <td class="cat-detail">Ba 视频类影视广告(15)</td>
+        </tr>
+        <tr>
+            <td class="rank">21</td>
+            <td class="inst-name">四川师范大学</td>
+            <td class="num">31</td>
+            <td class="pct">0.47%</td>
+            <td>四川（含西藏）</td>
+            <td class="cat-detail">Ba 视频类影视广告(8)</td>
+        </tr>
+        <tr>
+            <td class="rank">22</td>
+            <td class="inst-name">广西艺术学院</td>
+            <td class="num">31</td>
+            <td class="pct">0.47%</td>
+            <td>广西</td>
+            <td class="cat-detail">Eb 30秒广播广告(9)</td>
+        </tr>
+        <tr>
+            <td class="rank">23</td>
+            <td class="inst-name">郑州升达经贸管理学院</td>
+            <td class="num">30</td>
+            <td class="pct">0.45%</td>
+            <td>河南</td>
+            <td class="cat-detail">F 策划案类(16)</td>
+        </tr>
+        <tr>
+            <td class="rank">24</td>
+            <td class="inst-name">怀化学院</td>
+            <td class="num">30</td>
+            <td class="pct">0.45%</td>
+            <td>湖南</td>
+            <td class="cat-detail">Ba 视频类影视广告(18)</td>
+        </tr>
+        <tr>
+            <td class="rank">25</td>
+            <td class="inst-name">湖南科技大学</td>
+            <td class="num">29</td>
+            <td class="pct">0.44%</td>
+            <td>湖南</td>
+            <td class="cat-detail">F 策划案类(13)</td>
+        </tr>
+        <tr>
+            <td class="rank">26</td>
+            <td class="inst-name">上海师范大学</td>
+            <td class="num">29</td>
+            <td class="pct">0.44%</td>
+            <td>上海</td>
+            <td class="cat-detail">F 策划案类(9)</td>
+        </tr>
+        <tr>
+            <td class="rank">27</td>
+            <td class="inst-name">广州华商学院</td>
+            <td class="num">29</td>
+            <td class="pct">0.44%</td>
+            <td>广东</td>
+            <td class="cat-detail">Aa 平面广告(20)</td>
+        </tr>
+        <tr>
+            <td class="rank">28</td>
+            <td class="inst-name">重庆工商大学</td>
+            <td class="num">28</td>
+            <td class="pct">0.42%</td>
+            <td>重庆</td>
+            <td class="cat-detail">Aa 平面广告(18)</td>
+        </tr>
+        <tr>
+            <td class="rank">29</td>
+            <td class="inst-name">湘潭理工学院</td>
+            <td class="num">28</td>
+            <td class="pct">0.42%</td>
+            <td>湖南</td>
+            <td class="cat-detail">F 策划案类(18)</td>
+        </tr>
+        <tr>
+            <td class="rank">30</td>
+            <td class="inst-name">哈尔滨工业大学</td>
+            <td class="num">28</td>
+            <td class="pct">0.42%</td>
+            <td>黑龙江</td>
+            <td class="cat-detail">Eb 30秒广播广告(13)</td>
+        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>院校公示数量分布分析</h2>
+        <p style="margin-bottom: 20px; font-size: 14px;">
+            在 1,122 所参与院校中，公示数量分布如下：
+        </p>
+        <div class="dist-summary">
+            <div class="dist-item">
+                <div class="count">5</div>
+                <div class="desc">50项以上</div>
+            </div>
+            <div class="dist-item">
+                <div class="count">24</div>
+                <div class="desc">30项以上</div>
+            </div>
+            <div class="dist-item">
+                <div class="count">64</div>
+                <div class="desc">20项以上</div>
+            </div>
+            <div class="dist-item">
+                <div class="count">189</div>
+                <div class="desc">10项以上</div>
+            </div>
+            <div class="dist-item">
+                <div class="count">424</div>
+                <div class="desc">5项以上</div>
+            </div>
+        </div>
+        <div style="margin-top: 24px;">
+            <div class="distribution-bar">
+                <div class="bar-label">50项以上（5所）</div>
+                <div class="bar"><div class="bar-fill" style="width: 0.4%;">5</div></div>
+            </div>
+            <div class="distribution-bar">
+                <div class="bar-label">30-49项（19所）</div>
+                <div class="bar"><div class="bar-fill" style="width: 1.7%;">19</div></div>
+            </div>
+            <div class="distribution-bar">
+                <div class="bar-label">20-29项（40所）</div>
+                <div class="bar"><div class="bar-fill" style="width: 3.6%;">40</div></div>
+            </div>
+            <div class="distribution-bar">
+                <div class="bar-label">10-19项（125所）</div>
+                <div class="bar"><div class="bar-fill" style="width: 11.1%;">125</div></div>
+            </div>
+            <div class="distribution-bar">
+                <div class="bar-label">5-9项（235所）</div>
+                <div class="bar"><div class="bar-fill" style="width: 20.9%;">235</div></div>
+            </div>
+            <div class="distribution-bar">
+                <div class="bar-label">1-4项（698所）</div>
+                <div class="bar"><div class="bar-fill" style="width: 62.2%;">698</div></div>
+            </div>
+        </div>
+        <p style="margin-top: 16px; font-size: 13px; color: #666;">
+            仅5所院校获得50项以上公示，而933所院校（83.2%）获得不足10项，头部效应明显。
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>主要发现与结论</h2>
+        <div style="font-size: 14px; line-height: 1.8;">
+            <p><strong>1. 公示规模：</strong>第18届大广赛共公示6,640项拟定全国奖作品，来自1,122所院校、30个赛区，覆盖16个命题品牌和15个作品类别。</p>
+            <br>
+            <p><strong>2. 类别集中度：</strong>平面广告（27.26%）和视频类（影视+微电影+短视频共1820项，占27.4%）是两大主力类别，合计占比超过55%。</p>
+            <br>
+            <p><strong>3. 品牌热度：</strong>娃哈哈以1072项位居命题品牌首位（16.14%），豪士面包和超能植愈系列紧随其后，反映出快消品品牌在大广赛中具有较高的命题吸引力。</p>
+            <br>
+            <p><strong>4. 地区分布：</strong>重庆赛区以686项领先，湖南、广东、浙江等省份紧随其后。重庆地区院校整体表现突出，TOP20院校中有6所来自重庆赛区。</p>
+            <br>
+            <p><strong>5. 院校集中度：</strong>虽然1,122所院校参与，但仅5所院校获得50项以上公示，前30所院校贡献了约18%的公示作品，头部院校优势明显。</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>数据来源：第18届全国大学生广告艺术大赛公示信息查询 (www2.sun-ada.net)</p>
+        <p>报告生成时间：2026年8月 | 原始数据已保存为CSV文件</p>
+    </div>
+</div>
+
+<script>
+    // Category chart
+    new Chart(document.getElementById('categoryChart'), {
+        type: 'bar',
+        data: {
+            labels: ["Aa 平面广告", "Ba 视频类影视广告", "Eb 30秒广播广告", "F 策划案类", "Bb 视频类微电影广告", "C 动画类", "Bc 视频类短视频广告", "Ea 15秒广播广告", "Da 线上互动广告", "H UI类", "G 文案类", "Ac IP与创意周边", "Ab 产品与包装", "Ib 科技类文创周边", "Ia 科技类品牌形象IP"],
+            datasets: [{
+                label: '公示数量',
+                data: [1810, 770, 720, 700, 620, 460, 430, 200, 180, 160, 160, 140, 120, 90, 80],
+                backgroundColor: ['#00897b', '#26a69a', '#4db6ac', '#80cbc4', '#b2dfdb', '#e0f2f1', '#00695c', '#004d40', '#a5d6a7', '#81c784', '#66bb6a', '#4caf50', '#43a047', '#388e3c', '#2e7d32'],
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            let total = ctx.dataset.data.reduce((a,b) => a+b, 0);
+                            let pct = (ctx.parsed.x / total * 100).toFixed(2);
+                            return ctx.parsed.x.toLocaleString() + ' (' + pct + '%)';
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: { beginAtZero: true, ticks: { font: { size: 11 } } },
+                y: { ticks: { font: { size: 12 } } }
+            }
+        }
+    });
+
+    // Topic chart
+    new Chart(document.getElementById('topicChart'), {
+        type: 'bar',
+        data: {
+            labels: ["10 娃哈哈", "07 豪士面包", "12 超能植愈系列", "11 纳爱斯", "09 SANFU三福", "14 泡泡玛特", "05 HBN", "13 云南白药口腔健康", "04 赤尾", "15 福彩公益", "01 联通沃派", "08 Canva可画", "06 阿里云", "03 朗圣药业", "02 联通文创", "16 大广赛"],
+            datasets: [{
+                label: '公示数量',
+                data: [1072, 653, 589, 470, 457, 455, 447, 419, 382, 361, 342, 235, 211, 190, 187, 170],
+                backgroundColor: '#ff7043',
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, ticks: { font: { size: 11 } } },
+                x: { ticks: { font: { size: 10 }, maxRotation: 45 } }
+            }
+        }
+    });
+
+    // Area chart
+    new Chart(document.getElementById('areaChart'), {
+        type: 'bar',
+        data: {
+            labels: ["重庆", "湖南", "广东", "浙江", "安徽", "广西", "四川（含西藏）", "江苏", "河南", "北京", "湖北", "辽宁", "陕西", "山东", "江西"],
+            datasets: [{
+                label: '公示数量',
+                data: [686, 589, 531, 505, 453, 404, 351, 336, 294, 242, 229, 228, 185, 168, 160],
+                backgroundColor: '#5c6bc0',
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, ticks: { font: { size: 11 } } },
+                x: { ticks: { font: { size: 11 }, maxRotation: 45 } }
+            }
+        }
+    });
+
+    // School chart
+    new Chart(document.getElementById('schoolChart'), {
+        type: 'bar',
+        data: {
+            labels: ["重庆移通学院", "南京林业大学", "池州学院", "重庆电子科技职业大学", "哈尔滨师范大学", "重庆外语外事学院", "广西民族大学", "浙江理工大学", "重庆理工大学", "西南交通大学", "南京传媒学院", "安徽师范大学", "重庆对外经贸学院", "重庆城市科技学院", "湖南师范大学", "重庆工程职业技术学院", "杭州师范大学", "长江师范学院", "深圳大学", "铜陵学院"],
+            datasets: [{
+                label: '公示数量',
+                data: [66, 66, 64, 57, 53, 49, 45, 45, 43, 42, 40, 39, 39, 36, 34, 33, 33, 32, 31, 31],
+                backgroundColor: '#00897b',
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { beginAtZero: true, ticks: { font: { size: 11 } } },
+                y: { ticks: { font: { size: 11 } } }
+            }
+        }
+    });
+</script>
+</body>
+</html>

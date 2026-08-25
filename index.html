@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全国大学生广告艺术大赛 - 分析报告合集</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans CJK SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #1a237e 0%, #311b92 50%, #4a148c 100%);
+            min-height: 100vh;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .header p {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        .report-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        .report-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border-left: 6px solid;
+        }
+        .report-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        .report-card.purple { border-left-color: #7b1fa2; }
+        .report-card.teal { border-left-color: #00695c; }
+        .report-card.indigo { border-left-color: #1a237e; }
+        .report-card .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .report-card.purple .badge { background: #f3e5f5; color: #7b1fa2; }
+        .report-card.teal .badge { background: #e0f2f1; color: #00695c; }
+        .report-card.indigo .badge { background: #e8eaf6; color: #1a237e; }
+        .report-card h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+        .report-card .desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .report-card .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .report-card .stat {
+            font-size: 13px;
+            color: #888;
+        }
+        .report-card .stat strong {
+            color: #333;
+            font-size: 15px;
+        }
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>全国大学生广告艺术大赛</h1>
+            <p>获奖信息与公示数据分析报告合集</p>
+        </div>
+
+        <div class="report-grid">
+            <a href="report1-awards-analysis.html" class="report-card indigo">
+                <span class="badge">第1-17届 · 历史总览</span>
+                <h2>大广赛获奖信息分析报告</h2>
+                <p class="desc">涵盖第1届至第17届全部获奖信息的综合分析，包括院校获奖排名、奖项分布、赛区分布、作品类别趋势等多维度分析。</p>
+                <div class="stats">
+                    <span class="stat"><strong>65,904</strong> 条获奖记录</span>
+                    <span class="stat"><strong>4,992</strong> 所院校</span>
+                    <span class="stat"><strong>17</strong> 届赛事</span>
+                </div>
+            </a>
+
+            <a href="report2-18th-announcement.html" class="report-card teal">
+                <span class="badge">第18届 · 公示信息</span>
+                <h2>第18届大广赛公示信息汇总报告</h2>
+                <p class="desc">第18届大广赛拟定全国奖公示作品的全面汇总，包括15个作品类别、16个命题品牌的分布分析，以及院校和赛区排名。</p>
+                <div class="stats">
+                    <span class="stat"><strong>6,640</strong> 条公示记录</span>
+                    <span class="stat"><strong>1,122</strong> 所院校</span>
+                    <span class="stat"><strong>15</strong> 个类别</span>
+                </div>
+            </a>
+
+            <a href="report3-18th-ai-analysis.html" class="report-card purple">
+                <span class="badge">第18届 · AI使用统计</span>
+                <h2>第18届大广赛公示信息汇总报告（含AI统计）</h2>
+                <p class="desc">在第18届公示数据基础上新增AI使用情况统计，分析不同类别、命题、赛区的AI使用率，揭示AI在广告创意领域的应用趋势。</p>
+                <div class="stats">
+                    <span class="stat"><strong>61.4%</strong> AI使用率</span>
+                    <span class="stat"><strong>4,058</strong> 项AI辅助</span>
+                    <span class="stat"><strong>6,610</strong> 条详情</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>数据来源：全国大学生广告艺术大赛官网 (sun-ada.net)</p>
+            <p>报告生成时间：2026年8月</p>
+        </div>
+    </div>
+</body>
+</html>

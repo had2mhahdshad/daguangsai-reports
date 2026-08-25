@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第18届大广赛公示信息汇总报告（含AI使用统计）</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans CJK SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: #f0f2f5; color: #333; line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #4527a0, #7b1fa2);
+            color: white; padding: 40px 30px; border-radius: 12px;
+            margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .header h1 { font-size: 28px; margin-bottom: 10px; }
+        .header p { font-size: 14px; opacity: 0.85; }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px; margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white; padding: 24px 20px; border-radius: 10px;
+            text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .stat-card .number { font-size: 32px; font-weight: 700; }
+        .stat-card .label { font-size: 14px; color: #666; margin-top: 6px; }
+        .stat-card.purple .number { color: #7b1fa2; }
+        .stat-card.blue .number { color: #1565c0; }
+        .stat-card.green .number { color: #2e7d32; }
+        .stat-card.orange .number { color: #e65100; }
+        .stat-card.teal .number { color: #00695c; }
+        .section {
+            background: white; border-radius: 12px; padding: 30px;
+            margin-bottom: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .section h2 {
+            font-size: 20px; color: #4527a0; margin-bottom: 20px;
+            padding-bottom: 10px; border-bottom: 2px solid #e1bee7;
+        }
+        .chart-container { position: relative; width: 100%; }
+        .chart-half { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        @media (max-width: 768px) { .chart-half { grid-template-columns: 1fr; } }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table th {
+            background: #7b1fa2; color: white; padding: 12px 10px;
+            text-align: center; font-weight: 600; position: sticky; top: 0;
+        }
+        table td { padding: 10px; border-bottom: 1px solid #eee; text-align: center; }
+        table tr:nth-child(even) { background: #f8f4fb; }
+        table tr:hover { background: #e1bee7; }
+        .rank { font-weight: 700; color: #7b1fa2; }
+        .inst-name { text-align: left; font-weight: 500; }
+        .num { font-variant-numeric: tabular-nums; }
+        .pct { color: #666; font-size: 13px; }
+        .ai-yes { color: #7b1fa2; font-weight: 600; }
+        .ai-badge {
+            display: inline-block; padding: 2px 10px; border-radius: 12px;
+            font-size: 12px; font-weight: 600;
+        }
+        .ai-badge.high { background: #f3e5f5; color: #7b1fa2; }
+        .ai-badge.mid { background: #e3f2fd; color: #1565c0; }
+        .ai-badge.low { background: #e8f5e9; color: #2e7d32; }
+        .note {
+            background: #fff3e0; border-left: 4px solid #ff9800;
+            padding: 12px 16px; border-radius: 4px; margin-bottom: 20px;
+            font-size: 13px; color: #e65100;
+        }
+        .footer { text-align: center; padding: 20px; color: #999; font-size: 13px; }
+        .highlight-box {
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            border-radius: 10px; padding: 20px; margin: 16px 0;
+        }
+        .highlight-box p { font-size: 15px; }
+        .highlight-box strong { color: #4527a0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>第18届全国大学生广告艺术大赛 公示信息汇总报告</h1>
+        <p>含AI使用情况统计 | 数据来源：www2.sun-ada.net | 数据采集时间：2026年8月</p>
+    </div>
+
+    <div class="note">
+        本报告在上一版基础上新增了"是否使用AI"字段的统计分析。AI使用信息通过逐个抓取6,610个作品详情页获取，数据覆盖率99.2%。
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card purple">
+            <div class="number">6,610</div>
+            <div class="label">公示作品总数</div>
+        </div>
+        <div class="stat-card blue">
+            <div class="number">4,058</div>
+            <div class="label">使用AI辅助</div>
+        </div>
+        <div class="stat-card green">
+            <div class="number">2,500</div>
+            <div class="label">未使用AI</div>
+        </div>
+        <div class="stat-card orange">
+            <div class="number">61.4%</div>
+            <div class="label">整体AI使用率</div>
+        </div>
+        <div class="stat-card teal">
+            <div class="number">1,119</div>
+            <div class="label">参与院校数</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>AI使用情况总览</h2>
+        <div class="chart-half">
+            <div class="chart-container" style="height: 320px;">
+                <canvas id="aiOverviewChart"></canvas>
+            </div>
+            <div>
+                <div class="highlight-box">
+                    <p>在第18届大广赛全部6,610项公示作品中，<strong>4,058项（61.4%）使用了AI辅助创作</strong>，2,500项（37.8%）未使用AI，仅52项（0.8%）未能获取信息。</p>
+                    <br>
+                    <p>这意味着<strong>超过六成的获奖公示作品采用了AI技术</strong>，AI已成为广告创意领域的重要辅助工具。</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr><th>AI使用状态</th><th>作品数</th><th>占比</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>AI辅助</td><td class="num ai-yes">4,058</td><td class="pct">61.4%</td></tr>
+                        <tr><td>未使用AI</td><td class="num">2,500</td><td class="pct">37.8%</td></tr>
+                        <tr><td>获取失败</td><td class="num">52</td><td class="pct">0.8%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>不同作品类别AI使用情况</h2>
+        <div class="chart-container" style="height: 450px;">
+            <canvas id="categoryAIChart"></canvas>
+        </div>
+        <p style="margin-top: 12px; font-size: 13px; color: #666;">
+            动画类（94.6%）、科技类文创周边（100%）、科技类品牌形象IP（97.5%）的AI使用率最高；而广播广告类（15秒27.5%、30秒31.1%）和文案类（30.0%）的AI使用率最低，反映出AI在视觉创意领域的应用远超音频和纯文字创作。
+        </p>
+        <div style="margin-top: 20px; max-height: 400px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>作品类别</th>
+                        <th>总数</th>
+                        <th>AI辅助</th>
+                        <th>未使用AI</th>
+                        <th>AI使用率</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <tr>
+            <td class="inst-name">Ib 科技类文创周边</td>
+            <td class="num">90</td>
+            <td class="num ai-yes">90</td>
+            <td class="num">0</td>
+            <td class="pct"><span class="ai-badge high">100.0%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Ia 科技类品牌形象IP</td>
+            <td class="num">80</td>
+            <td class="num ai-yes">78</td>
+            <td class="num">2</td>
+            <td class="pct"><span class="ai-badge high">97.5%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">C 动画类</td>
+            <td class="num">460</td>
+            <td class="num ai-yes">435</td>
+            <td class="num">23</td>
+            <td class="pct"><span class="ai-badge high">94.6%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Da 线上互动广告</td>
+            <td class="num">180</td>
+            <td class="num ai-yes">154</td>
+            <td class="num">26</td>
+            <td class="pct"><span class="ai-badge high">85.6%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Ac IP与创意周边</td>
+            <td class="num">140</td>
+            <td class="num ai-yes">113</td>
+            <td class="num">24</td>
+            <td class="pct"><span class="ai-badge high">80.7%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">F 策划案类</td>
+            <td class="num">690</td>
+            <td class="num ai-yes">556</td>
+            <td class="num">130</td>
+            <td class="pct"><span class="ai-badge high">80.6%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">H UI类</td>
+            <td class="num">160</td>
+            <td class="num ai-yes">121</td>
+            <td class="num">39</td>
+            <td class="pct"><span class="ai-badge high">75.6%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Bc 视频类短视频广告</td>
+            <td class="num">430</td>
+            <td class="num ai-yes">296</td>
+            <td class="num">127</td>
+            <td class="pct"><span class="ai-badge mid">68.8%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Bb 视频类微电影广告</td>
+            <td class="num">620</td>
+            <td class="num ai-yes">407</td>
+            <td class="num">204</td>
+            <td class="pct"><span class="ai-badge mid">65.6%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Ab 产品与包装</td>
+            <td class="num">120</td>
+            <td class="num ai-yes">78</td>
+            <td class="num">41</td>
+            <td class="pct"><span class="ai-badge mid">65.0%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Ba 视频类影视广告</td>
+            <td class="num">770</td>
+            <td class="num ai-yes">431</td>
+            <td class="num">335</td>
+            <td class="pct"><span class="ai-badge mid">56.0%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Aa 平面广告</td>
+            <td class="num">1,790</td>
+            <td class="num ai-yes">972</td>
+            <td class="num">804</td>
+            <td class="pct"><span class="ai-badge mid">54.3%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Eb 30秒广播广告</td>
+            <td class="num">720</td>
+            <td class="num ai-yes">224</td>
+            <td class="num">493</td>
+            <td class="pct"><span class="ai-badge low">31.1%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">G 文案类</td>
+            <td class="num">160</td>
+            <td class="num ai-yes">48</td>
+            <td class="num">108</td>
+            <td class="pct"><span class="ai-badge low">30.0%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">Ea 15秒广播广告</td>
+            <td class="num">200</td>
+            <td class="num ai-yes">55</td>
+            <td class="num">144</td>
+            <td class="pct"><span class="ai-badge low">27.5%</span></td>
+        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>不同命题品牌AI使用情况</h2>
+        <div class="chart-container" style="height: 400px;">
+            <canvas id="topicAIChart"></canvas>
+        </div>
+        <p style="margin-top: 12px; font-size: 13px; color: #666;">
+            阿里云命题的AI使用率高达99.1%，大广赛自身命题（98.8%）紧随其后，超能植愈系列（75.6%）和泡泡玛特（78.0%）也较高；而赤尾（44.5%）和朗圣药业（45.2%）的AI使用率相对较低。
+        </p>
+        <div style="margin-top: 20px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>命题品牌</th>
+                        <th>总数</th>
+                        <th>AI辅助</th>
+                        <th>未使用AI</th>
+                        <th>AI使用率</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <tr>
+            <td class="inst-name">06 阿里云</td>
+            <td class="num">211</td>
+            <td class="num ai-yes">209</td>
+            <td class="num">2</td>
+            <td class="pct"><span class="ai-badge high">99.1%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">16 大广赛</td>
+            <td class="num">170</td>
+            <td class="num ai-yes">168</td>
+            <td class="num">2</td>
+            <td class="pct"><span class="ai-badge high">98.8%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">14 泡泡玛特</td>
+            <td class="num">454</td>
+            <td class="num ai-yes">354</td>
+            <td class="num">100</td>
+            <td class="pct"><span class="ai-badge high">78.0%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">12 超能植愈系列</td>
+            <td class="num">589</td>
+            <td class="num ai-yes">445</td>
+            <td class="num">144</td>
+            <td class="pct"><span class="ai-badge high">75.6%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">02 联通文创</td>
+            <td class="num">187</td>
+            <td class="num ai-yes">127</td>
+            <td class="num">60</td>
+            <td class="pct"><span class="ai-badge mid">67.9%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">08 Canva可画</td>
+            <td class="num">235</td>
+            <td class="num ai-yes">158</td>
+            <td class="num">77</td>
+            <td class="pct"><span class="ai-badge mid">67.2%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">13 云南白药口腔健康</td>
+            <td class="num">419</td>
+            <td class="num ai-yes">263</td>
+            <td class="num">156</td>
+            <td class="pct"><span class="ai-badge mid">62.8%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">10 娃哈哈</td>
+            <td class="num">1,072</td>
+            <td class="num ai-yes">666</td>
+            <td class="num">406</td>
+            <td class="pct"><span class="ai-badge mid">62.1%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">07 豪士面包</td>
+            <td class="num">653</td>
+            <td class="num ai-yes">376</td>
+            <td class="num">277</td>
+            <td class="pct"><span class="ai-badge mid">57.6%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">11 纳爱斯</td>
+            <td class="num">470</td>
+            <td class="num ai-yes">247</td>
+            <td class="num">223</td>
+            <td class="pct"><span class="ai-badge mid">52.6%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">01 联通沃派</td>
+            <td class="num">342</td>
+            <td class="num ai-yes">177</td>
+            <td class="num">165</td>
+            <td class="pct"><span class="ai-badge mid">51.8%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">15 福彩公益</td>
+            <td class="num">362</td>
+            <td class="num ai-yes">182</td>
+            <td class="num">180</td>
+            <td class="pct"><span class="ai-badge mid">50.3%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">09 SANFU三福</td>
+            <td class="num">447</td>
+            <td class="num ai-yes">220</td>
+            <td class="num">227</td>
+            <td class="pct"><span class="ai-badge low">49.2%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">05 HBN</td>
+            <td class="num">442</td>
+            <td class="num ai-yes">217</td>
+            <td class="num">225</td>
+            <td class="pct"><span class="ai-badge low">49.1%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">03 朗圣药业</td>
+            <td class="num">186</td>
+            <td class="num ai-yes">84</td>
+            <td class="num">102</td>
+            <td class="pct"><span class="ai-badge low">45.2%</span></td>
+        </tr>
+        <tr>
+            <td class="inst-name">04 赤尾</td>
+            <td class="num">371</td>
+            <td class="num ai-yes">165</td>
+            <td class="num">206</td>
+            <td class="pct"><span class="ai-badge low">44.5%</span></td>
+        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>各赛区AI使用情况 TOP 15</h2>
+        <div class="chart-container" style="height: 450px;">
+            <canvas id="areaAIChart"></canvas>
+        </div>
+        <p style="margin-top: 12px; font-size: 13px; color: #666;">
+            浙江赛区AI使用率最高（70.2%），北京（65.1%）和湖南（65.0%）紧随其后；河南赛区AI使用率最低（46.3%）。
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>TOP 30 院校AI使用情况</h2>
+        <div class="chart-container" style="height: 500px;">
+            <canvas id="schoolAIChart"></canvas>
+        </div>
+        <div style="margin-top: 20px; max-height: 500px; overflow-y: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>排名</th>
+                        <th>院校名称</th>
+                        <th>公示总数</th>
+                        <th>AI辅助</th>
+                        <th>未使用AI</th>
+                        <th>AI使用率</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <tr>
+            <td class="rank">1</td>
+            <td class="inst-name">南京林业大学</td>
+            <td class="num">66</td>
+            <td class="num ai-yes">28</td>
+            <td class="num">38</td>
+            <td class="pct">42.4%</td>
+        </tr>
+        <tr>
+            <td class="rank">2</td>
+            <td class="inst-name">重庆移通学院</td>
+            <td class="num">65</td>
+            <td class="num ai-yes">34</td>
+            <td class="num">31</td>
+            <td class="pct">52.3%</td>
+        </tr>
+        <tr>
+            <td class="rank">3</td>
+            <td class="inst-name">池州学院</td>
+            <td class="num">64</td>
+            <td class="num ai-yes">23</td>
+            <td class="num">41</td>
+            <td class="pct">35.9%</td>
+        </tr>
+        <tr>
+            <td class="rank">4</td>
+            <td class="inst-name">重庆电子科技职业大学</td>
+            <td class="num">57</td>
+            <td class="num ai-yes">38</td>
+            <td class="num">19</td>
+            <td class="pct">66.7%</td>
+        </tr>
+        <tr>
+            <td class="rank">5</td>
+            <td class="inst-name">哈尔滨师范大学</td>
+            <td class="num">51</td>
+            <td class="num ai-yes">14</td>
+            <td class="num">37</td>
+            <td class="pct">27.5%</td>
+        </tr>
+        <tr>
+            <td class="rank">6</td>
+            <td class="inst-name">重庆外语外事学院</td>
+            <td class="num">49</td>
+            <td class="num ai-yes">33</td>
+            <td class="num">16</td>
+            <td class="pct">67.3%</td>
+        </tr>
+        <tr>
+            <td class="rank">7</td>
+            <td class="inst-name">浙江理工大学</td>
+            <td class="num">45</td>
+            <td class="num ai-yes">25</td>
+            <td class="num">20</td>
+            <td class="pct">55.6%</td>
+        </tr>
+        <tr>
+            <td class="rank">8</td>
+            <td class="inst-name">广西民族大学</td>
+            <td class="num">45</td>
+            <td class="num ai-yes">33</td>
+            <td class="num">12</td>
+            <td class="pct">73.3%</td>
+        </tr>
+        <tr>
+            <td class="rank">9</td>
+            <td class="inst-name">重庆理工大学</td>
+            <td class="num">43</td>
+            <td class="num ai-yes">36</td>
+            <td class="num">7</td>
+            <td class="pct">83.7%</td>
+        </tr>
+        <tr>
+            <td class="rank">10</td>
+            <td class="inst-name">西南交通大学</td>
+            <td class="num">42</td>
+            <td class="num ai-yes">28</td>
+            <td class="num">14</td>
+            <td class="pct">66.7%</td>
+        </tr>
+        <tr>
+            <td class="rank">11</td>
+            <td class="inst-name">南京传媒学院</td>
+            <td class="num">40</td>
+            <td class="num ai-yes">27</td>
+            <td class="num">13</td>
+            <td class="pct">67.5%</td>
+        </tr>
+        <tr>
+            <td class="rank">12</td>
+            <td class="inst-name">安徽师范大学</td>
+            <td class="num">39</td>
+            <td class="num ai-yes">20</td>
+            <td class="num">19</td>
+            <td class="pct">51.3%</td>
+        </tr>
+        <tr>
+            <td class="rank">13</td>
+            <td class="inst-name">重庆对外经贸学院</td>
+            <td class="num">38</td>
+            <td class="num ai-yes">13</td>
+            <td class="num">25</td>
+            <td class="pct">34.2%</td>
+        </tr>
+        <tr>
+            <td class="rank">14</td>
+            <td class="inst-name">重庆城市科技学院</td>
+            <td class="num">36</td>
+            <td class="num ai-yes">21</td>
+            <td class="num">15</td>
+            <td class="pct">58.3%</td>
+        </tr>
+        <tr>
+            <td class="rank">15</td>
+            <td class="inst-name">湖南师范大学</td>
+            <td class="num">34</td>
+            <td class="num ai-yes">25</td>
+            <td class="num">9</td>
+            <td class="pct">73.5%</td>
+        </tr>
+        <tr>
+            <td class="rank">16</td>
+            <td class="inst-name">杭州师范大学</td>
+            <td class="num">33</td>
+            <td class="num ai-yes">22</td>
+            <td class="num">11</td>
+            <td class="pct">66.7%</td>
+        </tr>
+        <tr>
+            <td class="rank">17</td>
+            <td class="inst-name">重庆工程职业技术学院</td>
+            <td class="num">33</td>
+            <td class="num ai-yes">28</td>
+            <td class="num">5</td>
+            <td class="pct">84.8%</td>
+        </tr>
+        <tr>
+            <td class="rank">18</td>
+            <td class="inst-name">长江师范学院</td>
+            <td class="num">32</td>
+            <td class="num ai-yes">12</td>
+            <td class="num">20</td>
+            <td class="pct">37.5%</td>
+        </tr>
+        <tr>
+            <td class="rank">19</td>
+            <td class="inst-name">深圳大学</td>
+            <td class="num">31</td>
+            <td class="num ai-yes">21</td>
+            <td class="num">10</td>
+            <td class="pct">67.7%</td>
+        </tr>
+        <tr>
+            <td class="rank">20</td>
+            <td class="inst-name">广西艺术学院</td>
+            <td class="num">31</td>
+            <td class="num ai-yes">17</td>
+            <td class="num">14</td>
+            <td class="pct">54.8%</td>
+        </tr>
+        <tr>
+            <td class="rank">21</td>
+            <td class="inst-name">怀化学院</td>
+            <td class="num">31</td>
+            <td class="num ai-yes">14</td>
+            <td class="num">17</td>
+            <td class="pct">45.2%</td>
+        </tr>
+        <tr>
+            <td class="rank">22</td>
+            <td class="inst-name">四川师范大学</td>
+            <td class="num">31</td>
+            <td class="num ai-yes">19</td>
+            <td class="num">12</td>
+            <td class="pct">61.3%</td>
+        </tr>
+        <tr>
+            <td class="rank">23</td>
+            <td class="inst-name">铜陵学院</td>
+            <td class="num">31</td>
+            <td class="num ai-yes">23</td>
+            <td class="num">8</td>
+            <td class="pct">74.2%</td>
+        </tr>
+        <tr>
+            <td class="rank">24</td>
+            <td class="inst-name">郑州升达经贸管理学院</td>
+            <td class="num">30</td>
+            <td class="num ai-yes">21</td>
+            <td class="num">9</td>
+            <td class="pct">70.0%</td>
+        </tr>
+        <tr>
+            <td class="rank">25</td>
+            <td class="inst-name">广州华商学院</td>
+            <td class="num">29</td>
+            <td class="num ai-yes">12</td>
+            <td class="num">17</td>
+            <td class="pct">41.4%</td>
+        </tr>
+        <tr>
+            <td class="rank">26</td>
+            <td class="inst-name">哈尔滨工业大学</td>
+            <td class="num">28</td>
+            <td class="num ai-yes">13</td>
+            <td class="num">15</td>
+            <td class="pct">46.4%</td>
+        </tr>
+        <tr>
+            <td class="rank">27</td>
+            <td class="inst-name">吉首大学</td>
+            <td class="num">28</td>
+            <td class="num ai-yes">14</td>
+            <td class="num">14</td>
+            <td class="pct">50.0%</td>
+        </tr>
+        <tr>
+            <td class="rank">28</td>
+            <td class="inst-name">湘潭理工学院</td>
+            <td class="num">28</td>
+            <td class="num ai-yes">19</td>
+            <td class="num">9</td>
+            <td class="pct">67.9%</td>
+        </tr>
+        <tr>
+            <td class="rank">29</td>
+            <td class="inst-name">湖南科技大学</td>
+            <td class="num">28</td>
+            <td class="num ai-yes">22</td>
+            <td class="num">6</td>
+            <td class="pct">78.6%</td>
+        </tr>
+        <tr>
+            <td class="rank">30</td>
+            <td class="inst-name">重庆工商大学</td>
+            <td class="num">28</td>
+            <td class="num ai-yes">14</td>
+            <td class="num">14</td>
+            <td class="pct">50.0%</td>
+        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>AI使用情况核心发现</h2>
+        <div style="font-size: 14px; line-height: 1.8;">
+            <p><strong>1. AI已成主流创作工具：</strong>第18届大广赛6,610项公示作品中，61.4%（4,058项）使用AI辅助创作，超过未使用AI的作品数。这表明AI已在广告创意教育领域广泛普及。</p>
+            <br>
+            <p><strong>2. 类别差异显著：</strong>科技类作品（Ib 100%、Ia 97.5%）和动画类（94.6%）几乎全面使用AI，而广播广告类（15秒27.5%、30秒31.1%）和文案类（30.0%）AI使用率较低，说明AI在视觉/图像生成领域的应用远比音频和文字创作成熟。</p>
+            <br>
+            <p><strong>3. 命题品牌影响AI使用：</strong>科技类命题（阿里云99.1%、大广赛98.8%）的AI使用率远高于传统品牌命题（赤尾44.5%、朗圣药业45.2%），反映出科技品牌在引导参赛者使用AI方面发挥了示范作用。</p>
+            <br>
+            <p><strong>4. 地区差异：</strong>浙江（70.2%）、湖南（65.0%）、北京（65.1%）等地区AI使用率较高，而河南（46.3%）、安徽（56.7%）相对较低，可能与各地区院校的数字技术教育水平相关。</p>
+            <br>
+            <p><strong>5. 院校分化明显：</strong>重庆工程职业技术学院（84.8%）、重庆理工大学（83.7%）AI使用率较高，而池州学院（35.9%）、南京林业大学（42.4%）较低。不同院校对AI工具的接受度和教学引导存在显著差异。</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>数据来源：第18届全国大学生广告艺术大赛公示信息查询 (www2.sun-ada.net)</p>
+        <p>报告生成时间：2026年8月 | AI使用信息通过逐个抓取作品详情页获取，覆盖率99.2%</p>
+    </div>
+</div>
+
+<script>
+    // AI Overview donut chart
+    new Chart(document.getElementById('aiOverviewChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['AI辅助', '未使用AI', '获取失败'],
+            datasets: [{
+                data: [4058, 2500, 52],
+                backgroundColor: ['#7b1fa2', '#43a047', '#ff9800'],
+                borderWidth: 2, borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { size: 13 } } },
+                tooltip: {
+                    callbacks: {
+                        label: function(ctx) {
+                            let total = ctx.dataset.data.reduce((a,b) => a+b, 0);
+                            let pct = (ctx.parsed / total * 100).toFixed(1);
+                            return ctx.label + ': ' + ctx.parsed.toLocaleString() + ' (' + pct + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Category AI stacked bar chart
+    new Chart(document.getElementById('categoryAIChart'), {
+        type: 'bar',
+        data: {
+            labels: ["Aa 平面广告", "Ba 视频类影视广告", "Eb 30秒广播广告", "F 策划案类", "Bb 视频类微电影广告", "C 动画类", "Bc 视频类短视频广告", "Ea 15秒广播广告", "Da 线上互动广告", "G 文案类", "H UI类", "Ac IP与创意周边", "Ab 产品与包装", "Ib 科技类文创周边", "Ia 科技类品牌形象IP"],
+            datasets: [
+                {
+                    label: 'AI辅助', data: [972, 431, 224, 556, 407, 435, 296, 55, 154, 48, 121, 113, 78, 90, 78],
+                    backgroundColor: '#7b1fa2', borderRadius: 4,
+                },
+                {
+                    label: '未使用AI', data: [804, 335, 493, 130, 204, 23, 127, 144, 26, 108, 39, 24, 41, 0, 2],
+                    backgroundColor: '#43a047', borderRadius: 4,
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        afterLabel: function(ctx) {
+                            let total = ctx.dataset.data[ctx.dataIndex];
+                            if (ctx.datasetIndex === 0) {
+                                let total_all = ctx.chart.data.datasets[0].data[ctx.dataIndex] + ctx.chart.data.datasets[1].data[ctx.dataIndex];
+                                let pct = (ctx.parsed.x / total_all * 100).toFixed(1);
+                                return 'AI使用率: ' + pct + '%';
+                            }
+                            return '';
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: { stacked: true, beginAtZero: true, ticks: { font: { size: 11 } } },
+                y: { stacked: true, ticks: { font: { size: 11 } } }
+            }
+        }
+    });
+
+    // Topic AI percentage chart
+    new Chart(document.getElementById('topicAIChart'), {
+        type: 'bar',
+        data: {
+            labels: ["06 阿里云", "16 大广赛", "14 泡泡玛特", "12 超能植愈系列", "02 联通文创", "08 Canva可画", "13 云南白药口腔健康", "10 娃哈哈", "07 豪士面包", "11 纳爱斯", "01 联通沃派", "15 福彩公益", "09 SANFU三福", "05 HBN", "03 朗圣药业", "04 赤尾"],
+            datasets: [{
+                label: 'AI使用率(%)',
+                data: [99.1, 98.8, 78.0, 75.6, 67.9, 67.2, 62.8, 62.1, 57.6, 52.6, 51.8, 50.3, 49.2, 49.1, 45.2, 44.5],
+                backgroundColor: function(ctx) {
+                    let val = ctx.parsed.y;
+                    if (val >= 70) return '#7b1fa2';
+                    if (val >= 50) return '#1565c0';
+                    return '#43a047';
+                },
+                borderRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, max: 100, ticks: { font: { size: 11 }, callback: v => v + '%' } },
+                x: { ticks: { font: { size: 10 }, maxRotation: 45 } }
+            }
+        }
+    });
+
+    // Area AI stacked bar chart
+    new Chart(document.getElementById('areaAIChart'), {
+        type: 'bar',
+        data: {
+            labels: ["重庆", "湖南", "广东", "浙江", "安徽", "广西", "四川（含西藏）", "江苏", "河南", "北京", "湖北", "辽宁", "陕西", "山东", "江西"],
+            datasets: [
+                { label: 'AI辅助', data: [439, 380, 337, 354, 255, 228, 197, 199, 136, 157, 147, 116, 120, 121, 104], backgroundColor: '#7b1fa2', borderRadius: 4 },
+                { label: '未使用AI', data: [243, 205, 192, 150, 195, 175, 153, 137, 158, 84, 82, 112, 64, 47, 56], backgroundColor: '#43a047', borderRadius: 4 }
+            ]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' } },
+            scales: {
+                x: { stacked: true, ticks: { font: { size: 11 }, maxRotation: 45 } },
+                y: { stacked: true, beginAtZero: true, ticks: { font: { size: 11 } } }
+            }
+        }
+    });
+
+    // School AI stacked bar chart
+    new Chart(document.getElementById('schoolAIChart'), {
+        type: 'bar',
+        data: {
+            labels: ["南京林业大学", "重庆移通学院", "池州学院", "重庆电子科技职业大学", "哈尔滨师范大学", "重庆外语外事学院", "浙江理工大学", "广西民族大学", "重庆理工大学", "西南交通大学", "南京传媒学院", "安徽师范大学", "重庆对外经贸学院", "重庆城市科技学院", "湖南师范大学", "杭州师范大学", "重庆工程职业技术学院", "长江师范学院", "深圳大学", "广西艺术学院"],
+            datasets: [
+                { label: 'AI辅助', data: [28, 34, 23, 38, 14, 33, 25, 33, 36, 28, 27, 20, 13, 21, 25, 22, 28, 12, 21, 17], backgroundColor: '#7b1fa2', borderRadius: 4 },
+                { label: '未使用AI', data: [38, 31, 41, 19, 37, 16, 20, 12, 7, 14, 13, 19, 25, 15, 9, 11, 5, 20, 10, 14], backgroundColor: '#43a047', borderRadius: 4 }
+            ]
+        },
+        options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' } },
+            scales: {
+                x: { stacked: true, beginAtZero: true, ticks: { font: { size: 11 } } },
+                y: { stacked: true, ticks: { font: { size: 11 } } }
+            }
+        }
+    });
+</script>
+</body>
+</html>
